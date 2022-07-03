@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@200;400;500;600&display=swap" rel="stylesheet"> 
+</head>
+<body>
+
+    <main>
+        <div class="index__main">
+            <h1 class="index__h1">Bienvenido!</h1>
+            <h2 class="index__h21">Para iniciar sesion, ingrese sus credenciales:</h2>
+            <form class="index__form">
+                <fieldset class="form__fieldset">
+                    <div class="fieldset__line">
+                        <label for="userName" class="fieldset__label">Nombre de Usuario:</label>
+                        <input type="text" class="userLogin">
+                    </div>                
+                    <div class="fieldset__line">
+                        <label for="userPass" class="fieldset__label">Contraseña:</label>
+                        <input type="password" class="userLogin">
+                    </div>
+                    <div class="fieldset__input">
+                        <input type="submit" value="LOGIN" onclick="login()" class="input__button">
+                    </div>
+                </fieldset>
+            </form>  
+    </div>
+    </main>
+    <script src="js/main.js"></script>
+</body>
+</html>

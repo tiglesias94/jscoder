@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.index__main{
+    height: 100vh;
+    width: 100vw;
+    background: rgb(144,55,73);
+    background: linear-gradient(0deg, rgba(144,55,73,1) 0%, rgba(83,53,74,1) 30%, rgba(83,53,74,1) 50%, rgba(83,53,74,1) 70%, rgba(144,55,73,1) 100%); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.index__h1{
+    font-family: 'Kantumruy Pro', sans-serif;
+    text-align: center;
+    color: rgb(209, 203, 203);
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+}
+
+.index__h21{
+    font-family: 'Kantumruy Pro', sans-serif;
+    text-align: center;
+    color: rgb(209, 203, 203);
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+.index__form{
+    
+}
+
+.form__fieldset{
+    width: 25vw;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
+    border-color: rgba(245, 245, 245, 0.514);
+}
+
+.fieldset__line{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fieldset__label{
+    font-family: 'Kantumruy Pro', sans-serif;
+    color: rgb(209, 203, 203);
+    font-weight: 500;
+    width: 10rem;
+    margin-top: 0.25rem;
+}
+
+.userLogin{
+    font-family: 'Kantumruy Pro', sans-serif;
+    background-color: rgba(210, 210, 210, 0.132);
+    color: rgb(209, 203, 203);
+    font-weight: 500;
+    width: 10rem;
+    border: 1px solid rgba(210, 210, 210, 0.132);
+    margin-top: 0.25rem;
+    text-align: center;
+}
+
+.userLogin:focus{
+    outline: 2px #2B2E4A solid;
+}
+
+
+.fieldset__input{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5rem;
+}
+
+.input__button{
+    margin: 0.35rem;
+    background-color: #90374910;
+    width: 5rem;
+    padding: 0.1rem;
+    border: 1px whitesmoke solid;
+    border-radius: 2rem;
+    font-family: 'Kantumruy Pro', sans-serif;
+    color: rgb(209, 203, 203);
+    font-weight: 600;
+
+}
