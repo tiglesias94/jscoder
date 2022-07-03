@@ -21,10 +21,10 @@ function login(params) {
 function loginCheck(userName, password) {
 
     if (saleNames.includes(userName) && salePass.includes(password)) {
-        window.open("pages/admin.html")
+        window.open("/pages/admin.html")
     } else 
         {if (buyerNames.includes(userName) && buyerPass.includes(password)) {
-            window.open("pages/user.html")
+            window.open("/pages/user.html")
             } else {
             alert("Usuario / Contraseña Incorrectos")
             }
