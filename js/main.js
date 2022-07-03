@@ -21,10 +21,10 @@ function login(params) {
 function loginCheck(userName, password) {
 
     if (saleNames.includes(userName) && salePass.includes(password)) {
-        window.open("jscoder/pages/admin.html")
+        window.open("https://tiglesias94.github.io/jscoder/pages/admin.html")
     } else 
         {if (buyerNames.includes(userName) && buyerPass.includes(password)) {
-            window.open("jscoder/pages/user.html")
+            window.open("https://tiglesias94.github.io/jscoder/pages/user.html")
             } else {
             alert("Usuario / Contraseña Incorrectos")
             }
