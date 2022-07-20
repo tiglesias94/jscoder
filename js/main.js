@@ -105,8 +105,8 @@ function calcRoute() {
         console.log("-----------------------")
         console.log("Precio calculado del viaje: " + price)     
         
-        const output = document.querySelector('#calculations');
-        output.innerHTML = 
+        let output2 = document.querySelector(".calc");
+        output2.innerHTML = 
         "<h2> Detalles de tu encomienda:  </h2>"+
         "<h3> Paquete: " + document.getElementById("object").value +
         "<h3> Origen: " + document.getElementById("from").value + "</h3>" + 
