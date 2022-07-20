@@ -11,10 +11,10 @@ let map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
 //Crear un objeto para usar el metodo de direcciones y obtener la ruta optima para nuestro input
 var directionsService = new google.maps.DirectionsService();
 
-//create a DirectionsRenderer object which we will use to display the route
+//Creare un objeto DirectionsRenderer para mostrar la ruta en pantalla
 var directionsDisplay = new google.maps.DirectionsRenderer();
 
-//bind the DirectionsRenderer to the map
+//Asociar el objeto DirectionsRenderer al mapa previamente definido
 directionsDisplay.setMap(map);
 
 
@@ -31,29 +31,27 @@ function calcRoute() {
     directionsService.route(request, 
         function (result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-
-            //Get distance and time
-            const output = document.querySelector('#output');
-            output.innerHTML = 
-            
-
             //display route
             directionsDisplay.setDirections(result)
 
             
         } else {
-            //delete route from map
+            //Eliminar Ruta del Mapa
             directionsDisplay.setDirections({ routes: [] });
-            //center map HOME
+            
+            //Centrar el mapa en posicion HOME
             map.setCenter(myLatLng);
 
-            //show error message
+            //Mostrar mensaje de error
             output.innerHTML = "<div> <p> No fue posible encontrar una ruta valida para la encomienda </p> </div>";   
         }
     
 
         //Calculo costo de envio
+        //Invento una funcion para calcular el costo del envio en funcion del tamanio, peso, distancia y factores como si el producto es fragil o puede ser apilado.
         
+        //Defino constantes
+
         const priceFactor = {
             pricekm:10,
             areaFactor:0.15,
@@ -61,12 +59,15 @@ function calcRoute() {
             weightFactor:50
         }
         
-        
+        // Calculo constantes que dependen de los input
+
         const distance = parseInt(result.routes[0].legs[0].distance.text)
         const weight = document.getElementById("weight").value
         const volume = document.getElementById("sizeH").value*document.getElementById("sizeW").value*document.getElementById("sizeD").value
         const area = document.getElementById("sizeW").value*document.getElementById("sizeD").value
         
+        //Funcion para definir si el objeto es fragil y si puede ser apilado
+
         function fragileObj() {
             const fragile = document.getElementById("fragile").value
             if (fragile === "true") {
@@ -91,6 +92,8 @@ function calcRoute() {
             return (stackFactor)
         }
         
+        //Inicio las funciones
+
         fragileObj()
         stackObj()
    
@@ -98,14 +101,19 @@ function calcRoute() {
         console.log("Area del paquete: " + area)
         console.log("Volumen del paquete: " + volume)
         console.log("Peso del paquete: " + weight)
-               
+        
+        //Calculo el precio de la encomienda
+
         let price = parseInt(stackFactor * fragileFactor * (priceFactor.pricekm*distance) + (priceFactor.areaFactor * area) + (priceFactor.volumeFactor*volume) + (priceFactor.weightFactor*weight));
         
 
         console.log("-----------------------")
         console.log("Precio calculado del viaje: " + price)     
         
-        let output2 = document.querySelector(".calc");
+        // Muestro el resultado por pantalla
+        
+        let output2 = document.querySelector("#calculations");
+        console.log (output2)
         output2.innerHTML = 
         "<h2> Detalles de tu encomienda:  </h2>"+
         "<h3> Paquete: " + document.getElementById("object").value +
@@ -117,7 +125,7 @@ function calcRoute() {
     ;
 }
 
-//create autocomplete objects for all inputs
+//Crear objetos de autocompletar para los inputs
 var options = {
     types: ['(cities)']
 }
