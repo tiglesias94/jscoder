@@ -17,33 +17,56 @@
             <form>
 
                 <div>
-                
                     <label for="object">Objeto a Transportar</label>
                     
                     <div>
                         <input type="text" id="object" placeholder="Objeto">
                     </div>
-                  
                  </div>
 
-                 
+                 <div>
+                <h5>Objeto Fragil?</h5>
+                 <select name="fragil" id="fragile">
+                    <option value="true">Si</option>
+                    <option value="false">No</option>
+                  </select>
+                </div>
+
                 <div>
-                
-                    <label for="size">Dimensiones (mm)</label>
-                    
-                    <div>
-                        <input type="text" id="size" placeholder="alto,ancho,profundidad">
+                    <h5>Objeto Apilable?</h5>
+                     <select name="apilable" id="stack">
+                        <option value="true">Si</option>
+                        <option value="false">No</option>
+                      </select>
                     </div>
-                  
+                 
+                <div>  
+                    <label for="sizeH">Alto [cm]</label>
+                    <div>
+                        <input type="number" id="sizeH" placeholder="Alto">
+                    </div> 
                  </div>
                  
+                 <div>  
+                    <label for="sizeW">Ancho [cm]</label>
+                    <div>
+                        <input type="number" id="sizeW" placeholder="Ancho">
+                    </div> 
+                 </div>
+
+                 <div>  
+                    <label for="sizeD">Largo [cm]</label>
+                    <div>
+                        <input type="number" id="sizeD" placeholder="Profundidad">
+                    </div> 
+                 </div>
                  
                 <div>
                 
-                    <label for="weight">Peso (kg)</label>
+                    <label for="weight">Peso [kg]</label>
                     
                     <div>
-                        <input type="text" id="weight" placeholder="Peso">
+                        <input type="number" id="weight" placeholder="Peso">
                     </div>
                   
                  </div>
@@ -74,7 +97,7 @@
             </form>
 
             <div>
-                <button onclick="calcRoute();">Calcular</button>
+                <button onclick="calcRoute()">Calcular</button>
             </div>
 
         </section>
@@ -88,6 +111,12 @@
 
             </div>
 
+        </section>
+
+        <section>
+            <div id="calculations">
+
+            </div>
         </section>
 
     </div>
