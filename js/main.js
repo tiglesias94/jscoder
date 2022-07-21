@@ -1,4 +1,4 @@
-let myLatLng = { lat: 38.3460, lng: -0.4907 }; //Objeto --> parametros para definir punto cero del mapa
+let myLatLng = { lat: -34.6038, lng: -58.3817 }; //Objeto --> parametros para definir punto cero del mapa
 let mapOptions = { // Objeto --> Propiedades del mapa 
     center: myLatLng,
     zoom: 7,
@@ -111,7 +111,7 @@ function calcRoute() {
         console.log("Precio calculado del viaje: " + price)     
         
         // Muestro el resultado por pantalla
-        
+
         let output2 = document.querySelector("#calculations");
         console.log (output2)
         output2.innerHTML = 
