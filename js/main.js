@@ -114,16 +114,59 @@ function calcRoute() {
 
         let output2 = document.querySelector("#calculations");
         console.log (output2)
-        output2.innerHTML = 
+        output2.innerHTML =
         "<h2> Detalles de tu encomienda:  </h2>"+
-        "<h3> Paquete: " + document.getElementById("object").value +
-        "<h3> Origen: " + document.getElementById("from").value + "</h3>" + 
-        "<h3> Destino: " + document.getElementById("to").value + "</h3>" +
-        "<h3> Distancia de Encomienda: " + result.routes[0].legs[0].distance.text + "</h4>" +
-        "<h3> Precio de Encomienda: $ " + price + "</h3>";
+        "<h3> Paquete: " + document.getElementById("object").value+
+        "<h3> Origen: " + document.getElementById("from").value + "</h3>"+
+        "<h3> Destino: " + document.getElementById("to").value + "</h3>"+
+        "<h3> Distancia de Encomienda: " + result.routes[0].legs[0].distance.text + "</h4>"+
+        "<h3> Precio de Encomienda: $ " + price + "</h3>"+
+        "<h3> Fecha de llegada solicitada: " + document.getElementById("arrDate").value + "</h3>"+
+        "<div>"+
+        "<button id='sendJob'>Cargar Encomienda</button>"+
+        "</div>"+
+        "<div>"+
+        "<button id='modifyJob'>Modificar</button>"+
+        "</div>"
+                 ;
+
+        const mainScreen = document.getElementById("userBody");
+        mainScreen.classList.replace('user__body','user__bodyHide');
+        output2.classList.replace('user__modalHide','user__modal')
+
+               
+        const modifyJob = document.getElementById('modifyJob')
+        const sendJob = document.getElementById('sendJob')
+
+        modifyJob.addEventListener('click', ()=>{
+             mainScreen.classList.replace('user__bodyHide','user__body');
+             output2.classList.replace('user__modal','user__modalHide')
+
+        })
+
+        sendJob.addEventListener('click', ()=>{
+            output2.classList.replace('user__modal','user__modalHide')
+            const confirmation = document.getElementById('jobConfirm')
+            confirmation.innerHTML = 
+            "<h3>Encomienda Solicitada!</h3>"+
+            "<p>Recibiras el codigo de seguimiento cuando el viaje sea confirmado</p>"+
+            "<a href='../index.html' id='confirm'>Aceptar</a>"
+
+        })
+
     })
     ;
+
 }
+
+
+
+
+
+
+
+
+
 
 //Crear objetos de autocompletar para los inputs
 var options = {
