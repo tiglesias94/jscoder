@@ -1,123 +1,98 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@200;400;500;600&display=swap" rel="stylesheet"> 
 </head>
+
 <body>
 
-    <div class="user__body" id="userBody">
+    <div id="userBody" class="user__body">
 
-        <section>
-            <h1>Nueva Encomienda</h1>
-            <p>Ingresa los datos para solicitar una nueva encomienda</p>
+        <section class="user__section1">
+            
+            <h1 class="section1__header">Nueva Encomienda</h1>
+            <p class="section1__info">Ingresa los datos para solicitar una nueva encomienda</p>
+            
             <form>
-
-                <div>
-                    <label for="object">Objeto a Transportar</label>
-                    
-                    <div>
-                        <input type="text" id="object" placeholder="Objeto">
-                    </div>
-                 </div>
-
-                 <div>
-                <h5>Objeto Fragil?</h5>
-                 <select name="fragil" id="fragile">
-                    <option value="true">Si</option>
-                    <option value="false">No</option>
-                  </select>
+                <div class="section1__input">
+                    <label for="object" class="input__label">Objeto a Transportar:</label>
+                    <input type="text" id="object" placeholder="Objeto" class="input__field">
                 </div>
 
-                <div>
-                    <h5>Objeto Apilable?</h5>
-                     <select name="apilable" id="stack">
+                <div class="section1__input">
+                    <h3 class="input__label">Objeto Fragil?</h3>
+                    <select name="fragil" id="fragile" class="input__field">
                         <option value="true">Si</option>
                         <option value="false">No</option>
-                      </select>
-                    </div>
-                 
-                <div>  
-                    <label for="sizeH">Alto [cm]</label>
-                    <div>
-                        <input type="number" id="sizeH" placeholder="Alto">
-                    </div> 
-                 </div>
-                 
-                 <div>  
-                    <label for="sizeW">Ancho [cm]</label>
-                    <div>
-                        <input type="number" id="sizeW" placeholder="Ancho">
-                    </div> 
-                 </div>
+                    </select>
+                </div>
 
-                 <div>  
-                    <label for="sizeD">Largo [cm]</label>
-                    <div>
-                        <input type="number" id="sizeD" placeholder="Profundidad">
-                    </div> 
-                 </div>
-                 
-                <div>
-                
-                    <label for="weight">Peso [kg]</label>
-                    
-                    <div>
-                        <input type="number" id="weight" placeholder="Peso">
-                    </div>
-                  
-                 </div>
-                 
+                <div class="section1__input">
+                    <h3 class="input__label">Objeto Apilable?</h3>
+                    <select name="apilable" id="stack" class="input__field">
+                        <option value="true">Si</option>
+                        <option value="false">No</option>
+                    </select>
+                </div>
 
-                <div>
+                <div class="section1__input">
+                    <label for="sizeH" class="input__label">Alto [cm]:</label>
+                    <input type="number" id="sizeH" placeholder="Alto" class="input__field">
+                </div>
 
-                    <label for="from">Origen</label>
-                    
-                    <div>
-                        <input type="text" id="from" placeholder="Origin">
-                    </div>
+                <div class="section1__input">
+                    <label for="sizeW" class="input__label">Ancho [cm]:</label>
+                    <input type="number" id="sizeW" placeholder="Ancho" class="input__field">
+                </div>
 
-               </div>
+                <div class="section1__input">
+                    <label for="sizeD" class="input__label">Largo [cm]:</label>
+                    <input type="number" id="sizeD" placeholder="Profundidad" class="input__field">
+                </div>
 
-               <div>
-                
-                    <label for="to">Destino</label>
-                    
-                    <div>
-                        <input type="text" id="to" placeholder="Destination">
-                    </div>
-                  
-                 </div>
-
-                 <form>
-                    <div>
-                        <label for='fecha'>Fecha Arribo Desada:</label>                  
-                        <div>
-                            <input type='date' id='arrDate' placeholder='Ingrese Fecha'>
-                        </div>
-                    </div>
+                <div class="section1__input">
+                    <label for="weight" class="input__label">Peso [kg]:</label>
+                    <input type="number" id="weight" placeholder="Peso" class="input__field">
+                </div>
 
 
-                 
+                <div class="section1__input">
+                    <label for="from" class="input__label">Origen:</label>
+                    <input type="text" id="from" placeholder="Origin" class="input__field"> 
+                </div>
+
+                <div class="section1__input">
+                    <label for="to" class="input__label">Destino:</label>
+                    <input type="text" id="to" placeholder="Destination" class="input__field">
+                </div>
+
+                <div class="section1__input">
+                    <label for='fecha' class="input__label">Fecha Arribo Desada:</label>
+                    <input type='date' id='arrDate' placeholder='Ingrese Fecha' class="input__field">
+                </div>
             </form>
+            
+                <div class="section1__output">
+                    <button id="calculate" class="output__button">Calcular</button>
+                </div>
 
-            <div>
-                <button onclick="calcRoute()"  id="calculate">Calcular</button>
-            </div>
 
         </section>
 
-        <section>
+        <section class="user__section2">
 
             <div id="googleMap">
             </div>
-            
-            <div id="output">
 
+            <div id="output">
             </div>
 
         </section>
@@ -137,4 +112,5 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="../js/main.js"></script>
 </body>
+
 </html>

@@ -1,26 +1,53 @@
-let myLatLng = { lat: -34.6038, lng: -58.3817 }; //Objeto --> parametros para definir punto cero del mapa
-let mapOptions = { // Objeto --> Propiedades del mapa 
+
+
+
+//Definicion de constantes para el calculo
+const priceFactor = {
+    pricekm:10,
+    areaFactor:0.15,
+    volumeFactor:0.010,
+    weightFactor:50
+}
+
+let exec = document.querySelector("#calculate")
+exec.addEventListener('click', calcRoute)
+
+//Crear objetos de autocompletar para los inputs
+var options = {
+    types: ['(cities)']
+    }
+    
+    var input1 = document.getElementById("from");
+    var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
+    
+    var input2 = document.getElementById("to");
+    var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
+    
+//GOOGLE MAPS API
+
+//Objetos --> parametros para definir punto cero del mapa y propiedades del mapa
+
+var myLatLng = { lat: -34.6038, lng: -58.3817 }; 
+
+var mapOptions = {  
     center: myLatLng,
     zoom: 7,
     mapTypeId: google.maps.MapTypeId.ROADMAP
 }; 
 
 //Crear nueva instancia de clase Map e insertar en HTML
-let map = new google.maps.Map(document.getElementById('googleMap'), mapOptions); // Nuevo objeto MAP a partir del metodo MAP() de google.maps
-
 //Crear un objeto para usar el metodo de direcciones y obtener la ruta optima para nuestro input
-var directionsService = new google.maps.DirectionsService();
-
-//Creare un objeto DirectionsRenderer para mostrar la ruta en pantalla
-var directionsDisplay = new google.maps.DirectionsRenderer();
-
+//Crear un objeto DirectionsRenderer para mostrar la ruta en pantalla
 //Asociar el objeto DirectionsRenderer al mapa previamente definido
+var map = new google.maps.Map(document.getElementById('googleMap'), mapOptions);
+var directionsService = new google.maps.DirectionsService();
+var directionsDisplay = new google.maps.DirectionsRenderer();
 directionsDisplay.setMap(map);
 
 
 function calcRoute() {
     //Crear request para el objeto DirectionsRequest iniciado con DirectionsService
-    var request = {
+    let request = {
         origin: document.getElementById("from").value, //input origen
         destination: document.getElementById("to").value, // input destino
         travelMode: google.maps.TravelMode.DRIVING,
@@ -28,154 +55,133 @@ function calcRoute() {
     }
 
     //pass the request to the route method
-    directionsService.route(request, 
-        function (result, status) {
+    directionsService.route(request, route)
+
+    function route (result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             //display route
             directionsDisplay.setDirections(result)
-
-            
         } else {
             //Eliminar Ruta del Mapa
-            directionsDisplay.setDirections({ routes: [] });
-            
+            directionsDisplay.setDirections({ routes: [] }); 
             //Centrar el mapa en posicion HOME
             map.setCenter(myLatLng);
-
             //Mostrar mensaje de error
             output.innerHTML = "<div> <p> No fue posible encontrar una ruta valida para la encomienda </p> </div>";   
         }
+
+        let distance = parseInt((result.routes[0].legs[0].distance.value)/1000)
+        console.log("Calculo de Distancia: " + distance + "[Km]")
+        localStorage.setItem("distance",distance)
+        calculate()
+    }
+}
+
+
+function calculate() {
+    const distance = localStorage.getItem("distance")
+    const weight = document.getElementById("weight").value
+    const volume = document.getElementById("sizeH").value*document.getElementById("sizeW").value*document.getElementById("sizeD").value
+    const area = document.getElementById("sizeW").value*document.getElementById("sizeD").value
+
+    //Funcion para definir si el objeto es fragil
+    function fragileObj() {
+        const fragile = document.getElementById("fragile").value
+        if (fragile === "true") {
+            fragileFactor = 1.1
+        } else { 
+            fragileFactor = 1
+        }
+        return (fragileFactor)
+    }
+
+    //Funcion para definir si el objeto puede ser apilado
+    function stackObj() {
+        const stack = document.getElementById("stack").value
+        if (stack === "true") {
+            stackFactor = 1
+        } else { 
+            stackFactor=1.1
+        }
+        return (stackFactor)
+    }
+
+    fragileObj()
+    stackObj()
+
+    let price = parseInt(stackFactor * fragileFactor * (priceFactor.pricekm*distance) + (priceFactor.areaFactor * area) + (priceFactor.volumeFactor*volume) + (priceFactor.weightFactor*weight));
+
+    localStorage.setItem("price",price)
+
+    const job = {
+        id: Date.now(),
+        object: document.getElementById("object").value,
+        origin: document.getElementById("from").value,
+        destination: document.getElementById("to").value,
+        distance: distance,
+        stack: document.getElementById("stack").value,
+        fragile: document.getElementById("fragile").value,
+        priceTag: price,
+    }
+
+    resultRender()
+    return (job)
+}
+
+function resultRender() {
+    const distance = localStorage.getItem("distance")
+    const price = localStorage.getItem("price")
+    let output2 = document.querySelector("#calculations");
+    output2.innerHTML =
+    "<h2> Detalles de tu encomienda:  </h2>"+
+    "<h3> Paquete: " + document.getElementById("object").value+
+    "<h3> Origen: " + document.getElementById("from").value + "</h3>"+
+    "<h3> Destino: " + document.getElementById("to").value + "</h3>"+
+    "<h3> Distancia de Encomienda: " + distance + "</h4>"+
+    "<h3> Precio de Encomienda: $ " + price + "</h3>"+
+    "<h3> Fecha de llegada solicitada: " + document.getElementById("arrDate").value + "</h3>"+
+    "<div>"+
+    "<button id='sendJob'>Cargar Encomienda</button>"+
+    "</div>"+
+    "<div>"+
+    "<button id='modifyJob'>Modificar</button>"+
+    "</div>";
+
+    //Cambio de clases para mostrar informacion por pantalla
+    const mainScreen = document.getElementById("userBody");
+    mainScreen.classList.replace('user__body','user__bodyHide');
+    output2.classList.replace('user__modalHide','user__modal')
+
+    const modifyJob = document.getElementById('modifyJob')
+    const sendJob = document.getElementById('sendJob')
+
+    let jobUpload = document.querySelector("#sendJob")
+    jobUpload.addEventListener('click', jobRegister)
+
+    }
     
+function jobRegister() {
+    
+    let jobsArray = JSON.parse(localStorage.getItem("jobs")) || [];
+    
+    let job = calculate();
+    jobsArray.push(job);
 
-        //Calculo costo de envio
-        //Invento una funcion para calcular el costo del envio en funcion del tamanio, peso, distancia y factores como si el producto es fragil o puede ser apilado.
-        
-        //Defino constantes
+    localStorage.setItem("jobs",JSON.stringify(jobsArray))
 
-        const priceFactor = {
-            pricekm:10,
-            areaFactor:0.15,
-            volumeFactor:0.010,
-            weightFactor:50
-        }
-        
-        // Calculo constantes que dependen de los input
+    let output = document.querySelector("#calculations");
+    output.classList.replace('user__modal','user__modalHide')
+    
+    const confirmation = document.getElementById('jobConfirm')
+    confirmation.innerHTML = 
+    "<h3>Encomienda Solicitada!</h3>"+
+    "<p>Recibiras el codigo de seguimiento cuando el viaje sea confirmado</p>"+
+    "<button id='confirm'>Aceptar</button>";
 
-        const distance = parseInt(result.routes[0].legs[0].distance.text)
-        const weight = document.getElementById("weight").value
-        const volume = document.getElementById("sizeH").value*document.getElementById("sizeW").value*document.getElementById("sizeD").value
-        const area = document.getElementById("sizeW").value*document.getElementById("sizeD").value
-        
-        //Funcion para definir si el objeto es fragil y si puede ser apilado
+    const endJob = document.querySelector("#confirm")
 
-        function fragileObj() {
-            const fragile = document.getElementById("fragile").value
-            if (fragile === "true") {
-                fragileFactor = 1.1
-                console.log ("El objeto es FRAGIL")
-            } else { 
-                fragileFactor = 1
-                console.log ("El objeto NO es FRAGIL")    
-            }
-            return (fragileFactor)
-        }
-
-        function stackObj() {
-            const stack = document.getElementById("stack").value
-            if (stack === "true") {
-                stackFactor = 1
-                console.log ("El objeto es APILABLE")
-            } else { 
-                stackFactor=1.1
-                console.log ("El objeto NO es APILABLE")    
-            }
-            return (stackFactor)
-        }
-        
-        //Inicio las funciones
-
-        fragileObj()
-        stackObj()
-   
-        console.log("Distancia de envio: " + distance)
-        console.log("Area del paquete: " + area)
-        console.log("Volumen del paquete: " + volume)
-        console.log("Peso del paquete: " + weight)
-        
-        //Calculo el precio de la encomienda
-
-        let price = parseInt(stackFactor * fragileFactor * (priceFactor.pricekm*distance) + (priceFactor.areaFactor * area) + (priceFactor.volumeFactor*volume) + (priceFactor.weightFactor*weight));
-        
-
-        console.log("-----------------------")
-        console.log("Precio calculado del viaje: " + price)     
-        
-        // Muestro el resultado por pantalla
-
-        let output2 = document.querySelector("#calculations");
-        console.log (output2)
-        output2.innerHTML =
-        "<h2> Detalles de tu encomienda:  </h2>"+
-        "<h3> Paquete: " + document.getElementById("object").value+
-        "<h3> Origen: " + document.getElementById("from").value + "</h3>"+
-        "<h3> Destino: " + document.getElementById("to").value + "</h3>"+
-        "<h3> Distancia de Encomienda: " + result.routes[0].legs[0].distance.text + "</h4>"+
-        "<h3> Precio de Encomienda: $ " + price + "</h3>"+
-        "<h3> Fecha de llegada solicitada: " + document.getElementById("arrDate").value + "</h3>"+
-        "<div>"+
-        "<button id='sendJob'>Cargar Encomienda</button>"+
-        "</div>"+
-        "<div>"+
-        "<button id='modifyJob'>Modificar</button>"+
-        "</div>"
-                 ;
-
-        const mainScreen = document.getElementById("userBody");
-        mainScreen.classList.replace('user__body','user__bodyHide');
-        output2.classList.replace('user__modalHide','user__modal')
-
-               
-        const modifyJob = document.getElementById('modifyJob')
-        const sendJob = document.getElementById('sendJob')
-
-        modifyJob.addEventListener('click', ()=>{
-             mainScreen.classList.replace('user__bodyHide','user__body');
-             output2.classList.replace('user__modal','user__modalHide')
-
-        })
-
-        sendJob.addEventListener('click', ()=>{
-            output2.classList.replace('user__modal','user__modalHide')
-            const confirmation = document.getElementById('jobConfirm')
-            confirmation.innerHTML = 
-            "<h3>Encomienda Solicitada!</h3>"+
-            "<p>Recibiras el codigo de seguimiento cuando el viaje sea confirmado</p>"+
-            "<a href='../index.html' id='confirm'>Aceptar</a>"
-
-        })
-
-    })
-    ;
-
+    endJob.addEventListener("click", function(event){
+        event.preventDefault()
+        window.open("../index.html", "_self")})
 }
-
-
-
-
-
-
-
-
-
-
-//Crear objetos de autocompletar para los inputs
-var options = {
-    types: ['(cities)']
-}
-
-var input1 = document.getElementById("from");
-var autocomplete1 = new google.maps.places.Autocomplete(input1, options);
-
-var input2 = document.getElementById("to");
-var autocomplete2 = new google.maps.places.Autocomplete(input2, options);
 
