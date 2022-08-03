@@ -9,7 +9,7 @@ const priceFactor = {
     weightFactor:50
 }
 
-let exec = document.querySelector("#calculate")
+let exec = document.querySelector("#calculate") 
 exec.addEventListener('click', calcRoute)
 
 //Crear objetos de autocompletar para los inputs
@@ -152,8 +152,11 @@ function resultRender() {
     mainScreen.classList.replace('user__body','user__bodyHide');
     output2.classList.replace('user__modalHide','user__modal')
 
-    const modifyJob = document.getElementById('modifyJob')
-    const sendJob = document.getElementById('sendJob')
+    let modifyJob = document.querySelector("#modifyJob")
+    modifyJob.addEventListener('click', ()=>{
+        mainScreen.classList.replace('user__bodyHide','user__body');
+        output2.classList.replace('user__modal','user__modalHide')
+    })
 
     let jobUpload = document.querySelector("#sendJob")
     jobUpload.addEventListener('click', jobRegister)
