@@ -1,5 +1,5 @@
 
-
+var DateTime = luxon.DateTime;
 
 //Definicion de constantes para el calculo
 const priceFactor = {
@@ -11,6 +11,7 @@ const priceFactor = {
 
 let exec = document.querySelector("#calculate") 
 exec.addEventListener('click', calcRoute)
+
 
 //Crear objetos de autocompletar para los inputs
 var options = {
@@ -44,8 +45,75 @@ var directionsService = new google.maps.DirectionsService();
 var directionsDisplay = new google.maps.DirectionsRenderer();
 directionsDisplay.setMap(map);
 
+function logTrip (){
+    let request = {
+        origin: "Baradero, Provincia de Buenos Aires, Argentina", //BASE empresa transporte
+        destination: document.getElementById("from").value, // Donde recoger el paquete
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC
+    }
+
+    //pass the request to the route method
+    directionsService.route(request, route)
+
+    function route (result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            //display route
+            directionsDisplay.setDirections(result)
+        } else {
+            //Eliminar Ruta del Mapa
+            directionsDisplay.setDirections({ routes: [] }); 
+            //Centrar el mapa en posicion HOME
+            map.setCenter(myLatLng);
+            //Mostrar mensaje de error
+            output.innerHTML = "<div> <p> No fue posible encontrar una ruta valida para la encomienda </p> </div>";   
+        }
+       
+        let logDistance = parseInt((result.routes[0].legs[0].distance.value)/1000)
+        let logDuration = result.routes[0].legs[0].duration.value //segundos
+    
+        localStorage.setItem("logDistance",logDistance)
+        localStorage.setItem("logDuration",logDuration)
+    }
+
+}
+
+function logReturn (){
+    let request = {
+        origin: document.getElementById("to").value, //BASE empresa transporte
+        destination: "Baradero, Provincia de Buenos Aires, Argentina", // Donde recoger el paquete
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC
+    }
+
+    //pass the request to the route method
+    directionsService.route(request, route)
+
+    function route (result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            //display route
+            directionsDisplay.setDirections(result)
+        } else {
+            //Eliminar Ruta del Mapa
+            directionsDisplay.setDirections({ routes: [] }); 
+            //Centrar el mapa en posicion HOME
+            map.setCenter(myLatLng);
+            //Mostrar mensaje de error
+            output.innerHTML = "<div> <p> No fue posible encontrar una ruta valida para la encomienda </p> </div>";   
+        }
+       
+        let retDistance = parseInt((result.routes[0].legs[0].distance.value)/1000)
+        let retDuration = result.routes[0].legs[0].duration.value //segundos
+    
+        localStorage.setItem("retDistance",retDistance)
+        localStorage.setItem("retDuration",retDuration)
+    }
+
+}
 
 function calcRoute() {
+
+    
     //Crear request para el objeto DirectionsRequest iniciado con DirectionsService
     let request = {
         origin: document.getElementById("from").value, //input origen
@@ -71,18 +139,27 @@ function calcRoute() {
         }
 
         let distance = parseInt((result.routes[0].legs[0].distance.value)/1000)
+        let duration = result.routes[0].legs[0].duration.value //segundos
+
         console.log("Calculo de Distancia: " + distance + "[Km]")
         localStorage.setItem("distance",distance)
+        localStorage.setItem("duration",duration)
+        logTrip()
+        logReturn()
         calculate()
     }
 }
 
 
 function calculate() {
-    const distance = localStorage.getItem("distance")
+    const trip = parseInt(localStorage.getItem("distance"))
+    const logTrip = parseInt(localStorage.getItem("logDistance")) + parseInt(localStorage.getItem("retDistance"))
+    const distance =  trip + logTrip 
     const weight = document.getElementById("weight").value
     const volume = document.getElementById("sizeH").value*document.getElementById("sizeW").value*document.getElementById("sizeD").value
     const area = document.getElementById("sizeW").value*document.getElementById("sizeD").value
+    const date = document.getElementById("arrDate").value
+    let lxtime = DateTime.fromISO(date)
 
     //Funcion para definir si el objeto es fragil
     function fragileObj() {
@@ -112,6 +189,7 @@ function calculate() {
     let price = parseInt(stackFactor * fragileFactor * (priceFactor.pricekm*distance) + (priceFactor.areaFactor * area) + (priceFactor.volumeFactor*volume) + (priceFactor.weightFactor*weight));
 
     localStorage.setItem("price",price)
+    localStorage.setItem("objDate",lxtime)
 
     const job = {
         id: Date.now(),
@@ -188,3 +266,16 @@ function jobRegister() {
         window.open("../index.html", "_self")})
 }
 
+function deliveryTime(params) {
+    const objDate = localStorage.getItem("objDate")
+    const tripDuration = localStorage.getItem("duration")
+    
+    if (tripDuration <= 10800) {
+        let prepTime = 2880
+    } else {
+        let prepTime = 5760
+    }
+    //addTime = tripDuration + prepTime
+    //minTime = DateTime.now().plus({seconds: addTime})
+    alert (prepTime)
+}
