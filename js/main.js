@@ -153,7 +153,7 @@ function calcRoute() {
 
 function calculate() {
     const trip = parseInt(localStorage.getItem("distance"))
-    const logTrip = parseInt(localStorage.getItem("logDistance")) + parseInt(localStorage.getItem("retDistance"))
+    const logTrip = parseInt(localStorage.getItem("logDistance")) + parseInt(localStorage.getItem("retDistance")) //Distancia para llegar hasta el origen y volver desde el destino
     const distance =  trip + logTrip 
     const weight = document.getElementById("weight").value
     const volume = document.getElementById("sizeH").value*document.getElementById("sizeW").value*document.getElementById("sizeD").value
@@ -191,6 +191,8 @@ function calculate() {
     localStorage.setItem("price",price)
     localStorage.setItem("objDate",lxtime)
 
+    deliveryTime()
+
     const job = {
         id: Date.now(),
         object: document.getElementById("object").value,
@@ -200,6 +202,7 @@ function calculate() {
         stack: document.getElementById("stack").value,
         fragile: document.getElementById("fragile").value,
         priceTag: price,
+        deliveryDate: localStorage.getItem("deliveryDate")
     }
 
     resultRender()
@@ -217,7 +220,7 @@ function resultRender() {
     "<h3> Destino: " + document.getElementById("to").value + "</h3>"+
     "<h3> Distancia de Encomienda: " + distance + "</h4>"+
     "<h3> Precio de Encomienda: $ " + price + "</h3>"+
-    "<h3> Fecha de llegada solicitada: " + document.getElementById("arrDate").value + "</h3>"+
+    "<h3> Fecha de llegada calculada: " + localStorage.getItem("deliveryDate") + "</h3>"+
     "<div>"+
     "<button id='sendJob'>Cargar Encomienda</button>"+
     "</div>"+
@@ -266,16 +269,34 @@ function jobRegister() {
         window.open("../index.html", "_self")})
 }
 
-function deliveryTime(params) {
-    const objDate = localStorage.getItem("objDate")
-    const tripDuration = localStorage.getItem("duration")
+function deliveryTime() {
     
-    if (tripDuration <= 10800) {
-        let prepTime = 2880
+    const objDate = localStorage.getItem("objDate")
+    
+    const tripDuration = parseInt(localStorage.getItem("duration")) + parseInt(localStorage.getItem("logDuration")) +  parseInt(localStorage.getItem("retDuration"))
+    
+    if (tripDuration <= 14400) {
+        let prepTime = 2*24*3600 // 2 dias para preparacion de envios con una viajes de menos de 4 horas
+        localStorage.setItem("prepTime", prepTime)
     } else {
-        let prepTime = 5760
+        let prepTime = 4*24*3600 // 4 dias para preparacion de envios con una viajes de mas de 3 horas
+        localStorage.setItem("prepTime", prepTime)
     }
-    //addTime = tripDuration + prepTime
-    //minTime = DateTime.now().plus({seconds: addTime})
-    alert (prepTime)
+
+    const prepTime = (localStorage.getItem("prepTime"))
+
+    addTime = parseInt(tripDuration) + parseInt(prepTime)
+    
+    minDate = DateTime.now().plus({seconds: addTime})
+
+    d1 = DateTime.fromISO(objDate)
+    d2 = DateTime.fromISO(minDate)
+
+    // Comparo fecha objetivo del cliente con fecha minima posible calculada
+
+    if (d1 > d2) {
+        localStorage.setItem("deliveryDate",d1.toLocaleString())
+    } else {
+        localStorage.setItemm("deliveryDate",d2.toLocaleString())
+    }
 }
