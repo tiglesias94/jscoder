@@ -297,6 +297,6 @@ function deliveryTime() {
     if (d1 > d2) {
         localStorage.setItem("deliveryDate",d1.toLocaleString())
     } else {
-        localStorage.setItemm("deliveryDate",d2.toLocaleString())
+        localStorage.setItem("deliveryDate",d2.toLocaleString())
     }
 }
