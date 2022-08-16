@@ -246,12 +246,66 @@ function resultRender() {
     
 function jobRegister() {
     
+    function retrieveData () {
+        fetch("../data/jobs.json")
+        .then((response)=>{
+            return response.json()
+        })
+        .then((jobs)=>{
+            let storedJobs=jobs
+            return storedJobs
+        })
+    } 
+
+    let job = calculate();
+
+    let jobs = retrieveData() || [];
+    
+    jobs.push(job);
+
+    console.log(jobs)
+
+    
+    fetch("../data/jobs.json", {
+        method:'POST',
+        body: JSON.stringify(jobs),
+        headers:{
+            "Content-type":"application/json"
+        }
+    })
+
+
+
+
+    
+
+    /////////////////////////////////////////////////////////////////////
+    let output = document.querySelector("#calculations");
+    output.classList.replace('user__modal','user__modalHide')
+    
+    const confirmation = document.getElementById('jobConfirm')
+    confirmation.innerHTML = 
+    "<h3>Encomienda Solicitada!</h3>"+
+    "<p>Recibiras el codigo de seguimiento cuando el viaje sea confirmado</p>"+
+    "<button id='confirm'>Aceptar</button>";
+
+    const endJob = document.querySelector("#confirm")
+
+    endJob.addEventListener("click", function(event){
+        event.preventDefault()
+        window.open("../index.html", "_self")})
+        
+       
+
+
+    /*
     let jobsArray = JSON.parse(localStorage.getItem("jobs")) || [];
     
     let job = calculate();
     jobsArray.push(job);
 
     localStorage.setItem("jobs",JSON.stringify(jobsArray))
+
 
     let output = document.querySelector("#calculations");
     output.classList.replace('user__modal','user__modalHide')
@@ -267,6 +321,7 @@ function jobRegister() {
     endJob.addEventListener("click", function(event){
         event.preventDefault()
         window.open("../index.html", "_self")})
+        */
 }
 
 function deliveryTime() {
@@ -300,3 +355,4 @@ function deliveryTime() {
         localStorage.setItem("deliveryDate",d2.toLocaleString())
     }
 }
+
