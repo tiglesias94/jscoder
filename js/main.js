@@ -249,35 +249,37 @@ function jobRegister() {
     function retrieveData () {
         fetch("../data/jobs.json")
         .then((response)=>{
+            console.log(response)
             return response.json()
         })
-        .then((jobs)=>{
-            let storedJobs=jobs
-            return storedJobs
-        })
+        .then(data=> localStorage.setItem("datos", JSON.stringify(data)))
     } 
-
-    let job = calculate();
-
-    let jobs = retrieveData() || [];
     
-    jobs.push(job);
+    retrieveData();
+    let data = []
 
-    console.log(jobs)
+    let storage = JSON.parse(localStorage.getItem("datos"))
+    let newJob = calculate();
+       
+    data.push(storage)
+    data.push(newJob)
+    
+    console.log("OLD STORAGE")
+    console.log(storage)
+
+    console.log("NEW STORAGE")
+    console.log(data)
+
 
     
-    fetch("../data/jobs.json", {
+    /*fetch("http://127.0.0.1:5500/data/jobs.json", {
         method:'POST',
         body: JSON.stringify(jobs),
         headers:{
             "Content-type":"application/json"
-        }
-    })
-
-
-
-
-    
+        }}
+        )
+*/
 
     /////////////////////////////////////////////////////////////////////
     let output = document.querySelector("#calculations");
@@ -295,33 +297,6 @@ function jobRegister() {
         event.preventDefault()
         window.open("../index.html", "_self")})
         
-       
-
-
-    /*
-    let jobsArray = JSON.parse(localStorage.getItem("jobs")) || [];
-    
-    let job = calculate();
-    jobsArray.push(job);
-
-    localStorage.setItem("jobs",JSON.stringify(jobsArray))
-
-
-    let output = document.querySelector("#calculations");
-    output.classList.replace('user__modal','user__modalHide')
-    
-    const confirmation = document.getElementById('jobConfirm')
-    confirmation.innerHTML = 
-    "<h3>Encomienda Solicitada!</h3>"+
-    "<p>Recibiras el codigo de seguimiento cuando el viaje sea confirmado</p>"+
-    "<button id='confirm'>Aceptar</button>";
-
-    const endJob = document.querySelector("#confirm")
-
-    endJob.addEventListener("click", function(event){
-        event.preventDefault()
-        window.open("../index.html", "_self")})
-        */
 }
 
 function deliveryTime() {
