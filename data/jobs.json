@@ -1,3 +1,12 @@
+
     {
-        "id": 1234
+    "id": "storedJob",
+    "object": "box",
+    "origin": "Baradero, Buenos Aires, Argentina",
+    "destination": "La Plata, Buenos Aires, Argentina",
+    "distance": 240,
+    "stack": false,
+    "fragile": true,
+    "priceTag": 0,
+    "deliveryDate": 0
     }

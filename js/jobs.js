@@ -3,7 +3,7 @@ const li = document.createElement("li");
 li.textContent = "manzana";
 listaDeCompras.appendChild(li);*/
 
-let jobs = JSON.parse(localStorage.getItem("jobs")) || []
+let jobs = JSON.parse(localStorage.getItem("storage")) || []
 
 
 jobs.forEach(object => {
