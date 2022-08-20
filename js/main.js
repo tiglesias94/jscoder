@@ -353,3 +353,17 @@ function deliveryTime() {
     }
 }
 
+
+
+
+
+let uploadBtn = document.querySelector("#uploadBtn")
+uploadBtn.addEventListener('click', sweetAlert)
+
+function sweetAlert() {
+    Swal.fire({
+        icon: 'error',
+        title: 'Todavia no se como hacerlo',
+        text: '(Pero el resto funciona bien)',
+      })
+}
