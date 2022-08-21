@@ -34,6 +34,10 @@ html{
 .bootNavbar{
     background-color: rgb(37, 36, 36);
 }
+
+.navbar__header{
+    font-family: 'Lato', sans-serif;   
+}
 .user__body{
 
     display: flex;
@@ -209,9 +213,60 @@ width: 50vw;
     color: #e63946;
 }
 
-.user__modal{
-
+.user__main{}
+.user__mainHide{
+    display: none;
 }
+.user__modal{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.output2__header{
+    font-family: 'Lato', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1rem;
+    text-decoration-line: underline;
+}
+
+.output2__subHeader{
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.output2__container{
+    background-color: #E05D5D;
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.subHeader__info{
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.output2__buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/*---------------------------------------*/
+
+
+
 
 .user__bodyHide{
     display: none;
@@ -250,4 +305,56 @@ width: 50vw;
     font-family: 'Lato', sans-serif;
     font-size: 1.1rem;
     font-weight: 500;
+}
+
+.loading__containerHide{
+    display: none;
+}
+.loading__container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+}
+
+.loadingSCR__bg{
+    width: 25vw;
+    height: 25vw;
+    border-radius: 50%;
+    background-color: rgb(229, 108, 108);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    animation-name: loadingSCR;
+    animation-duration: 5s;
+}
+@keyframes loadingSCR {
+    0%{width: 0vw;
+        height: 0vw;}
+    20%{width: 25vw;
+        height: 25vw;}
+    80%{width: 25vw;
+        height: 25vw;}
+    100%{ width: 100vw;
+        height: 100vw;}
+}
+
+.loading__text{
+    color: rgb(244, 244, 244);
+    font-family: 'Lato', sans-serif;
+    font-size:2rem;
+    animation-name: loadingSCR__txt;
+    animation-duration: 3s;
+    animation-delay: 1s;
+}
+@keyframes loadingSCR__txt {
+    0%{color: rgb(244, 244, 244);}
+    25%{color:rgb(229, 108, 108);}
+    50%{color: rgb(244, 244, 244)}
+    75%{color: rgb(229, 108, 108);}
+    875%{color: rgb(229, 108, 108);}
 }

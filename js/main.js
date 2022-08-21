@@ -94,28 +94,25 @@ function calcRoute() {
         
         logTrip()
         logReturn()
-        
-        var resolvedFlag = true;
-        let mypromise = function functionOne(testInput){
-            return new Promise((resolve, reject)=>{
-                setTimeout(
-                    ()=>{
-                        if(resolvedFlag==true){
-                            resolve("Resolved")    
-                        }else{
-                            reject("Rejected")
-                        }
-                    },1000
-                );
-            });
-        };
 
-        mypromise().then((res)=>{
-            calculate()
-        })
-        
-        
-        
+        const mainScreen = document.getElementById("user__main");
+        mainScreen.classList.replace('user__main','user__mainHide');
+        let output2 = document.querySelector("#calculations");
+    
+        const loadingSCR = document.querySelector("#loadingSCR");
+        const loadingSCRtxt = document.querySelector("#loadingSCRtxt");
+        loadingSCR.classList.replace("loading__containerHide", "loading__container")
+        loadingSCRtxt.classList.add("loading__text")  
+
+    load()
+
+    function load() {
+    setTimeout(() => {
+    output2.classList.replace('user__modalHide','user__modal');
+    loadingSCR.classList.replace("loading__container", "loading__containerHide");
+    calculate()
+    }, 5000);  
+    }      
     }
 }
 
@@ -254,30 +251,47 @@ function resultRender() {
     const price = localStorage.getItem("price")
     let output2 = document.querySelector("#calculations");
     output2.innerHTML =
-    "<h2> Detalles de tu encomienda:  </h2>"+
-    "<h3> Paquete: " + document.getElementById("object").value+
-    "<h3> Origen: " + document.getElementById("from").value + "</h3>"+
-    "<h3> Destino: " + document.getElementById("to").value + "</h3>"+
-    "<h3> Distancia de Encomienda: " + distance + "</h4>"+
-    "<h3> Precio de Encomienda: $ " + price + "</h3>"+
-    "<h3> Fecha de llegada calculada: " + localStorage.getItem("deliveryDate") + "</h3>"+
-    "<div>"+
-    "<button id='sendJob'>Cargar Encomienda</button>"+
-    "</div>"+
-    "<div>"+
-    "<button id='modifyJob'>Modificar</button>"+
+
+    "<div class='output2__container'>"+
+
+        "<h2 class='output2__header'>RESUMEN DE ENVÍO</h2>"+
+
+        "<h3 class='output2__subHeader'> PAQUETE"+ "</h3>" + 
+            "<h4 class='subHeader__info'>"+ document.getElementById("object").value+ "</h4>" + 
+        
+        "<h3 class='output2__subHeader'> ORIGEN" + "</h3>" + 
+            "<h4 class='subHeader__info'>"+ document.getElementById("from").value + "</h4>" +
+        
+        "<h3 class='output2__subHeader'> DESTINO" + "</h3>" + 
+            "<h4 class='subHeader__info'>"+ document.getElementById("to").value + "</h4>" +
+        
+        "<h3 class='output2__subHeader' > DISTANCIA DE ENCOMIENDA" + "</h3>" + 
+            "<h4 class='subHeader__info'>"+ distance + "</h4>" +
+
+        "<h3 class='output2__subHeader' > PRECIO DE ENCOMIENDA" + "</h3>"+ 
+            "<h4 class='subHeader__info'>  $"+ price + "</h4>" +
+
+        "<h3 class='output2__subHeader'> FECHA DE LLEGADA CALCULADA" + "</h3>"+ 
+            "<h4 class='subHeader__info'>"+ localStorage.getItem("deliveryDate") + "</h4>" +
+
+        "<div class='output2__buttons'>" +
+            "<button id='sendJob'>CARCAR ENCOMIENDA</button>"+
+            "<button id='modifyJob'>MODIFICAR</button>"+
+        "</div>"+
     "</div>";
-
-    //Cambio de clases para mostrar informacion por pantalla
-    const mainScreen = document.getElementById("userBody");
-    mainScreen.classList.replace('user__body','user__bodyHide');
-    output2.classList.replace('user__modalHide','user__modal')
-
+    
+    const mainScreen = document.getElementById("user__main");
+    const loadingSCR = document.querySelector("#loadingSCR");
+    const loadingSCRtxt = document.querySelector("#loadingSCRtxt");
     let modifyJob = document.querySelector("#modifyJob")
+    
     modifyJob.addEventListener('click', ()=>{
+        loadingSCR.classList.replace("loading__container", "loading__containerHide")
         mainScreen.classList.replace('user__bodyHide','user__body');
-        output2.classList.replace('user__modal','user__modalHide')
+        output2.classList.replace('user__modal','user__modalHide');
+        mainScreen.classList.replace('user__mainHide','user__main');
     })
+    
 
     let jobUpload = document.querySelector("#sendJob")
     jobUpload.addEventListener('click', jobRegister)
@@ -353,10 +367,6 @@ function deliveryTime() {
     }
 }
 
-
-
-
-
 let uploadBtn = document.querySelector("#uploadBtn")
 uploadBtn.addEventListener('click', sweetAlert)
 
@@ -367,3 +377,15 @@ function sweetAlert() {
         text: '(Pero el resto funciona bien)',
       })
 }
+
+
+
+let icon = document.querySelectorAll("#icon")
+
+icon.forEach(element => {
+    element.addEventListener('mouseover', ()=>{
+        element.classList.add('animate__animated', 'animate__pulse');
+    })
+    
+});
+
