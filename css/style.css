@@ -176,7 +176,7 @@ width: 50vw;
     font-family: 'Lato', sans-serif;
     font-weight: 600;
     font-size: 1.1rem;
-    background-color: #e63946;
+    background-color: #272626;
     width: 20vw;
     height: 2.5rem;
     color: rgb(255, 255, 255);
@@ -219,30 +219,36 @@ width: 50vw;
 }
 .user__modal{
     height: 100vh;
+    background-color: #E05D5D;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: 2rem;
 }
 
 
 .output2__header{
     font-family: 'Lato', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     text-align: center;
     margin-bottom: 1rem;
-    text-decoration-line: underline;
 }
 
 .output2__subHeader{
     font-family: 'Lato', sans-serif;
     font-size: 1rem;
     font-weight: 600;
+    grid-area: a2;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .output2__container{
-    background-color: #E05D5D;
+    background-color: rgba(245, 245, 245, 0.687);
     border-radius: 1rem;
     padding: 1rem;
     display: flex;
@@ -255,13 +261,49 @@ width: 50vw;
     font-family: 'Lato', sans-serif;
     font-size: 1rem;
     font-weight: 500;
+    grid-area: a3;
+
 }
 
 .output2__buttons{
+    margin-top: 0.5rem;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.output2__button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0.5rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: none;
+    padding: 0.5rem;
+    height: 2rem;
+    background-color: #101010df;
+    color: whitesmoke;
+}
+
+.output2__card{
+    display: grid;
+    width: 25rem;
+
+    grid-template-areas: "a1 a2" "a1 a3";
+    grid-template-rows: 2rem;
+    grid-template-columns: 5rem 20rem;
+    margin-bottom: 0.5rem;
+}
+
+.form__icon2{
+    grid-area: a1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-right: 0.5rem;
 }
 /*---------------------------------------*/
 
@@ -281,8 +323,78 @@ width: 50vw;
 }
 
 .user__confirmation{
+margin-top: 5rem;
+height: 85vh;
+display: grid;
+grid-template-areas: "c1 c2" "c1 c3" "c4 c4";
+grid-template-rows: 3rem 3rem 3rem;
+grid-template-columns: 10vw 90vw;
 
 }
+
+.confirmation__icon{
+    grid-area: c1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmation__header{
+
+    height: 100%;
+    grid-area: c2;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+
+}
+
+.confirmation__p{
+    grid-area: c3;
+    height: 100%;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+
+}
+
+.confirm__cont{
+    grid-area: c4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.confirmation__button{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10rem;
+    margin: 0.5rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    padding: 0.5rem;
+    height: 2rem;
+    background-color: #101010df;
+    color: whitesmoke;
+}   
+
+
+
+
+
+
+
+
 
 .user__confirmationHide{
     display: none;
@@ -338,9 +450,11 @@ width: 50vw;
     20%{width: 25vw;
         height: 25vw;}
     80%{width: 25vw;
-        height: 25vw;}
+        height: 25vw;
+        border-radius: 50%}
     100%{ width: 100vw;
-        height: 100vw;}
+        height: 100vw;
+    border-radius: 0;}
 }
 
 .loading__text{
@@ -357,4 +471,30 @@ width: 50vw;
     50%{color: rgb(244, 244, 244)}
     75%{color: rgb(229, 108, 108);}
     875%{color: rgb(229, 108, 108);}
+}
+
+
+.index__section{
+    height: 100vh;
+    padding-top: 5rem;
+}
+
+.index__container{
+
+    margin-bottom: 2rem;
+    height: 12rem;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.index__menu{
+    margin-left: 1rem;
+    font-family: 'Lato', sans-serif;
+    font-size:1.7rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: rgb(34, 34, 34);
 }

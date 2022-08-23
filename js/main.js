@@ -256,28 +256,47 @@ function resultRender() {
 
         "<h2 class='output2__header'>RESUMEN DE ENVÍO</h2>"+
 
-        "<h3 class='output2__subHeader'> PAQUETE"+ "</h3>" + 
-            "<h4 class='subHeader__info'>"+ document.getElementById("object").value+ "</h4>" + 
-        
-        "<h3 class='output2__subHeader'> ORIGEN" + "</h3>" + 
-            "<h4 class='subHeader__info'>"+ document.getElementById("from").value + "</h4>" +
-        
-        "<h3 class='output2__subHeader'> DESTINO" + "</h3>" + 
-            "<h4 class='subHeader__info'>"+ document.getElementById("to").value + "</h4>" +
-        
-        "<h3 class='output2__subHeader' > DISTANCIA DE ENCOMIENDA" + "</h3>" + 
-            "<h4 class='subHeader__info'>"+ distance + "</h4>" +
-
-        "<h3 class='output2__subHeader' > PRECIO DE ENCOMIENDA" + "</h3>"+ 
-            "<h4 class='subHeader__info'>  $"+ price + "</h4>" +
-
-        "<h3 class='output2__subHeader'> FECHA DE LLEGADA CALCULADA" + "</h3>"+ 
-            "<h4 class='subHeader__info'>"+ localStorage.getItem("deliveryDate") + "</h4>" +
-
-        "<div class='output2__buttons'>" +
-            "<button id='sendJob'>CARCAR ENCOMIENDA</button>"+
-            "<button id='modifyJob'>MODIFICAR</button>"+
+        "<div class='output2__card'>"+
+            "<i id='icon' class='fa-solid fa-box-open fa-2x form__icon2'></i>"+
+            "<h3 class='output2__subHeader'> PAQUETE"+ "</h3>" + 
+                "<h4 class='subHeader__info'>"+ document.getElementById("object").value+ "</h4>" + 
         "</div>"+
+
+        "<div class='output2__card'>"+
+            "<i id='icon' class='fa-solid fa-location-dot fa-2x form__icon2'></i>"+
+            "<h3 class='output2__subHeader'> ORIGEN" + "</h3>" + 
+                "<h4 class='subHeader__info'>"+ document.getElementById("from").value + "</h4>" +
+        "</div>"+
+        
+        "<div class='output2__card'>"+
+            "<i id='icon' class='fa-solid fa-flag-checkered fa-2x form__icon2'></i>"+
+            "<h3 class='output2__subHeader'> DESTINO" + "</h3>" + 
+                "<h4 class='subHeader__info'>"+ document.getElementById("to").value + "</h4>" +
+        "</div>"+
+        
+        "<div class='output2__card'>"+
+            "<i id='icon' class='fa-solid fa-road fa-2x form__icon2'></i>"+
+            "<h3 class='output2__subHeader' > DISTANCIA DE ENCOMIENDA" + "</h3>" + 
+                "<h4 class='subHeader__info'>"+ distance + "KM</h4>" +
+        "</div>"+
+
+        "<div class='output2__card'>"+
+            "<i id='icon' class='fa-solid fa-dollar-sign fa-2x form__icon2'></i>"+
+            "<h3 class='output2__subHeader' > PRECIO DE ENCOMIENDA" + "</h3>"+ 
+                "<h4 class='subHeader__info'>  $"+ price + "</h4>" +
+        "</div>"+
+
+        "<div class='output2__card'>"+
+            "<i id='icon' class='fa-solid fa-calendar-check fa-2x form__icon2'></i>"+
+            "<h3 class='output2__subHeader'> FECHA DE LLEGADA CALCULADA" + "</h3>"+ 
+                "<h4 class='subHeader__info'>"+ localStorage.getItem("deliveryDate") + "</h4>" +
+        "</div>"+
+
+            "<div class='output2__buttons'>" +
+                "<button id='modifyJob' class='output2__button'>MODIFICAR</button>"+
+                "<button id='sendJob' class='output2__button'>CONFIRMAR</button>"+
+            "</div>"+
+
     "</div>";
     
     const mainScreen = document.getElementById("user__main");
@@ -323,10 +342,16 @@ function jobRegister() {
     output.classList.replace('user__modal','user__modalHide')
     
     const confirmation = document.getElementById('jobConfirm')
+    confirmation.classList.replace('user__confirmationHide','user__confirmation')
+    
     confirmation.innerHTML = 
-    "<h3>Encomienda Solicitada!</h3>"+
-    "<p>Recibiras el codigo de seguimiento cuando el viaje sea confirmado</p>"+
-    "<button id='confirm'>Aceptar</button>";
+    "<i class='fa-solid fa-clipboard-check confirmation__icon fa-5x'></i>"+
+    "<h3 class='confirmation__header'>ENCOMIENDA SOLICITADA!</h3>"+
+    "<p class='confirmation__p'>Recibiras el codigo de seguimiento cuando el viaje sea confirmado</p>"+
+    "<div class='confirm__cont'>"+
+    "<button id='confirm' class='confirmation__button'>Aceptar</button>"+
+    "</div>";
+    
 
     const endJob = document.querySelector("#confirm")
 
