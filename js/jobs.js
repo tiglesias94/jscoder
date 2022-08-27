@@ -13,10 +13,17 @@ jobs.forEach(object => {
     card.classList.add("jobs__card");
     node.appendChild(card)
     card.innerHTML = 
-    "<li class='card__element'>ID Encomienda: " + "<h4 class='element__content'>" + object.id + "</h4>" + "</li>"+
-    "<li class='card__element'>Paquete: " + "<h4 class='element__content'>" + object.object + "</h4>" + "</li>"+
-    "<li class='card__element'>Origen: " + "<h4 class='element__content'>" + object.origin + "</h4>" + "</li>"+
-    "<li class='card__element'>Destino: " + "<h4 class='element__content'>" + object.destination + "</h4>" + "</li>"+
-    "<button> Ver Detalles </button>";
-})
 
+    "<div class='card' style='width: 20rem;height:35rem'>"+
+        "<img src='../img/sample.jpg' class='card-img-top' alt='...'>"+
+        "<div class='card-body'>"+
+            "<h5 class='card-title'>"+"ID: "+object.id+"</h5>"+
+            "<h5 class='card-title'>"+"OBJETO: "+object.object+"</h5>"+
+            "<ul class='list-group list-group-flush'>"+
+                "<li class='list-group-item'>"+ "ORIGEN: "+object.origin+"</li>"+
+                "<li class='list-group-item'>"+ "DESTINO: "+object.destination+"</li>"+
+            "</ul>"+
+        "<a href='#' class='btn btn-primary stored__button'>Ver Detalles</a>"+
+        "</div>"+
+    "</div>"
+})

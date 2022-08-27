@@ -1,6 +1,8 @@
 
 var DateTime = luxon.DateTime;
 
+// FETCH para tomar informacion de una base de datos local como archivo .JSON
+
 function retrieveData () {
     fetch("../data/jobs.json")
     .then((response)=>{
@@ -12,9 +14,10 @@ function retrieveData () {
 
 retrieveData()
 
-//Definicion de constantes para el calculo
+//Definicion de constantes para el calculo de precio de envio
+
 const priceFactor = {
-    pricekm:10,
+    pricekm:7,
     areaFactor:0.15,
     volumeFactor:0.010,
     weightFactor:50
@@ -116,6 +119,8 @@ function calcRoute() {
     }
 }
 
+// Calculo de viaje "logistico" desde ciudad de empresa a origen de encomienda 
+
 function logTrip (){
     let request = {
         origin: "Baradero, Provincia de Buenos Aires, Argentina", //BASE empresa transporte
@@ -149,6 +154,9 @@ function logTrip (){
 
 }
 
+
+// Calculo de viaje "logistico" desde fin de encomienda a ciudad de empresa
+
 function logReturn (){
     let request = {
         origin: document.getElementById("to").value, //BASE empresa transporte
@@ -181,6 +189,8 @@ function logReturn (){
     }
 
 }
+
+// Calculadora de costo 
 
 function calculate() {
     
@@ -245,6 +255,8 @@ function calculate() {
     return (job)
     
 }
+
+// Funcion para mostrar resultados de calculo en pantalla
 
 function resultRender() {
     const distance = localStorage.getItem("distance")
@@ -316,7 +328,8 @@ function resultRender() {
     jobUpload.addEventListener('click', jobRegister)
 
     }
-    
+
+//Funcion para registrar los viajes solicitados en localstorage
 function jobRegister() {
           
     let data = JSON.parse(localStorage.getItem("storage")) || []
@@ -360,6 +373,8 @@ function jobRegister() {
         window.open("../index.html", "_self")})
     }
 
+    // Funcion para calcular tiempo de llegada
+
 function deliveryTime() {
     
     const objDate = localStorage.getItem("objDate")
@@ -402,8 +417,6 @@ function sweetAlert() {
         text: '(Pero el resto funciona bien)',
       })
 }
-
-
 
 let icon = document.querySelectorAll("#icon")
 

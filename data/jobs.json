@@ -1,7 +1,7 @@
 
     {
-    "id": "storedJob",
-    "object": "box",
+    "id": "JSON local",
+    "object": "Objeto",
     "origin": "Baradero, Buenos Aires, Argentina",
     "destination": "La Plata, Buenos Aires, Argentina",
     "distance": 240,
