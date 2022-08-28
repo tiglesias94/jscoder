@@ -538,6 +538,10 @@ grid-template-columns: 100vw;
     }
     .form__object{
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: cener;
+        align-items: center;
     }
     .user__section1{
         margin-top: 1.5rem;
@@ -554,7 +558,9 @@ grid-template-columns: 100vw;
     }
 
     .input__label{
-        width: 100%;
+        width: fit-content;
+        text-align: center;
+        margin: 1rem;
 
     }
 
