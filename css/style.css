@@ -545,7 +545,7 @@ grid-template-columns: 100vw;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100vw;
+        width: 100%;
     
     }
 
@@ -554,7 +554,7 @@ grid-template-columns: 100vw;
     }
 
     .input__label{
-        width: 20rem;
+        width: 100%;
 
     }
 
