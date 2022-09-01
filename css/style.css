@@ -493,9 +493,7 @@ grid-template-columns: 100vw;
 
 
 .index__container{
-
-    margin-bottom: 2rem;
-    height: 12rem;
+    margin-top: 5rem;
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -505,10 +503,18 @@ grid-template-columns: 100vw;
 
 .index__menu{
     margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(34, 34, 34);
+}
+
+.index__text{
     font-family: 'Lato', sans-serif;
     font-size:1.7rem;
     font-weight: 600;
-    text-decoration: none;
     color: rgb(34, 34, 34);
 }
 
