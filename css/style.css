@@ -572,10 +572,36 @@ grid-template-columns: 100vw;
     }
 
     .index__menu{
-        margin-top: 0.5rem;
-        font-size:1.3rem;}
+        margin-left: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        color: rgb(34, 34, 34);
+    }
+
+    .index__text{
+        font-family: 'Lato', sans-serif;
+        font-size:1.7rem;
+        font-weight: 600;
+        color: rgb(34, 34, 34);
+        margin-top: 2rem;
+    }
 
     .confirmation__p{
         text-align: center;
     }
+}
+
+@media screen and (max-width:480px){
+    .index__text{
+        display: flex;
+        font-family: 'Lato', sans-serif;
+        font-size:1.3rem;
+        font-weight: 600;
+        color: rgb(34, 34, 34);
+        margin-top: 2rem;
+    }
+
 }
